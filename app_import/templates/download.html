@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+        <h3><b>Invoice processada com sucesso:</b></h3>
+        <a href="{% url 'download_file' filename=invoice %}">
+            Baixar {{invoice}}</a>
+    <content>
+</body>
+
+{% endblock content %}
