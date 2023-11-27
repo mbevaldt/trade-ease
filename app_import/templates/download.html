@@ -5,10 +5,33 @@
 
 <body>
     <content> <!--to use HTML tags and not Bulma, use content as container-->
-        <h3><b>Invoice processada com sucesso:</b></h3>
-        <a href="{% url 'download_file' filename=invoice %}">
-            Baixar {{invoice}}</a>
-    <content>
+        <h2><b>Invoice lida com sucesso!</b></h2>        
+        <p>Verifique as informações obtidas antes de importar para o banco de dados<p></p><br>
+
+        <p>Invoice Number: {{ invoice_data.invoice_number }}</p>
+        <p>Date: {{ invoice_data.date }}</p>
+        <p>Container No: {{ invoice_data.container_num }}</p>
+        <p>Port Destination: {{ invoice_data.port_dest }}</p><br>
+
+        <table border='1'>
+            <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+            </tr>
+
+            {% for itens in invoice_data.itens %}
+
+                <tr>
+                    <td>{{ itens.0 }}</td>
+                    <td>{{ itens.1 }}</td>
+                    <td>{{ itens.2 }}</td>
+                </tr>
+                
+            {% endfor %}
+        </table><br>
+        <a href="#">Importar Invoice para BD</a>
+    </content>                                    
 </body>
 
 {% endblock content %}
