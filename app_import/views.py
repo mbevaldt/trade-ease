@@ -3,6 +3,7 @@ import mimetypes
 from django.http import Http404
 from django.conf import settings
 from django.shortcuts import render, HttpResponse
+from django.template import loader
 from .forms import InvoiceForm
 from . import invoice
 
@@ -18,8 +19,8 @@ def upload_file(request):
             invoice.remove_invoices()
             form.save() #return HttpResponse('The invoice was saved')
             filename = request.FILES['file'].name.replace(' ','_')
-            new_name = invoice.process_invoice(str(filename))
-            context = {'invoice' : new_name}
+            invoice_data = invoice.get_invoice_data(filename)
+            context = {'invoice_data' : invoice_data}
             return render(request, 'download.html', context)
     else:
         form = InvoiceForm()

@@ -55,7 +55,48 @@ def process_invoice(invoice):
       return new_name
 
 
-#process_invoice('Commercial_invoice_-_CI-22-376.pdf')
+def get_invoice_data(invoice):
+      BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+      invoice_path = BASE_DIR + '/media/invoices/' + invoice
+
+      pdf = fitz.open(invoice_path) 
+      text = pdf[0].get_text(sort=True)
+      dict_invoice = {}
+
+      invoice_number = re.findall('Invoice\sNumber\\n(\w\w-\d\d-\d{4})', text)
+      date_ = re.findall('(\d\d[.\/]\d\d[.\/]\d{4})', text)
+      container_num = re.findall('(\w{4}\d{7})\\nContainer', text)
+      port_dest = re.findall('Port\s\/\sDestination\\n(.*)\\n', text)
+
+      dict_invoice['invoice_number'] = invoice_number[0]
+      dict_invoice['date'] = date_[0]
+      dict_invoice['container_num'] = container_num[0]
+      dict_invoice['port_dest'] = port_dest[0]
+
+      description = re.findall('(\d{3}\/\d{2}R.*?)\\n', text)
+      quantity = re.findall('\d{3}\/\d{2}R.*?\\n\s*(\d+)\s*\\n', text)
+      unit_value = re.findall('\d{3}\/\d{2}R.*?\\n\s*\d+\\n{0,3}\s*(\d+\.?\d{2})', text)
+
+      itens = list(zip(description, quantity, unit_value))
+      dict_invoice['itens'] = itens
+      
+      return dict_invoice
+
+
+#get_invoice_data('Commercial_invoice_-_CI-22-378.pdf')
+      
+      
+
+
+
+
+
+
+
+
+
+
+
 
 
 
