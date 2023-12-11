@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-primary is-light">
+            Invoice cadastrada no Banco de Dados! 
+        </div>
+
+
+        <table class="table" is-striped is-narrow>
+
+            <tr bgcolor="#eef6fc">
+                <th>Invoice</th>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Qtdade</th>
+                <th>Saldo Anterior</th>
+                <th>Mensagem</th>
+            </tr>
+
+            {% for dict_msg in lst_msg %}
+
+                <tr>
+                    <td>{{dict_msg.invoice_number}}</td>
+                    <td>{{dict_msg.invoice_date}}</td>
+                    <td>{{dict_msg.description}}</td>
+                    <td>{{dict_msg.quantity}}</td>
+                    <td>{{dict_msg.balance}}</td>
+                    <td style="color: {{ dict_msg.color }};">
+                        {{dict_msg.msg}}</td>
+                </tr>    
+
+            {% endfor %}
+
+        </table><br>
+    </content>                                    
+</body>
+
+{% endblock content %}

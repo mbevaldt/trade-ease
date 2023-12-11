@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-info is-light">
+            Relação de ProFormas com saldo a alocar:
+        </div>
+
+        <table class="table" is-striped is-narrow>
+            <tr bgcolor="#eef6fc">
+                <th>PI REF</th>
+                <th>Descrição Pneu</th>
+                <th>Qtdade</th>
+                <th>Usado</th>
+                <th>Saldo</th>
+            </tr>
+
+            {% for index, row in df_proforma.iterrows %}
+            <tr> 
+                {% for cell in row %}
+                <td>
+                    {{cell}}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        
+        </table><br>
+    </content>                                    
+</body>
+
+{% endblock content %}

@@ -1,0 +1,112 @@
+{% load static %} <!-- Prepare django to load static files -->
+
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}"/>
+
+    <!-- Include the Bulma CSS framework for styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!--<link rel="stylesheet" href="{% static 'style.css' %}">-->
+    <!-- Include Bootstrap CSS framework for styling 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    -->
+    <title>TradeEase</title>
+</head>
+
+<body> <!--<hr class="navbar-divider">-->
+        <nav class="navbar is-info has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
+            <!--is-primary-->
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" 
+                        href="/">Home</a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link"> 
+                            Importar</a>    
+                        
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" 
+                                href="{% url 'upload_file' filetype='proforma' %}">
+                                Pro Forma</a>   
+
+                            <a class="navbar-item"
+                                href="{% url 'upload_file' filetype='invoice' %}">
+                                Invoice</a> 
+
+                            <a class="navbar-item" 
+                                href="{% url 'upload_file' filetype='packing' %}">
+                                Packing List</a>
+
+                            <a class="navbar-item" 
+                            href="{% url 'upload_file' filetype='bill' %}">
+                                Bill of Lading 1</a>
+
+                        </div>  
+                    </div>    
+                
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                            Relatórios</a>
+                
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item"
+                                href="{% url 'show_proforma_balance' %}">
+                                Pro Formas com Saldo</a>
+                            <a class="navbar-item"
+                                href="{% url 'show_ledger' %}">
+                                Pro Formas Consumidas</a>
+
+                            <hr class="navbar-divider">
+
+                            <a class="navbar-item" 
+                                href="{% url 'show_bill_excel' %}">
+                                Documentos Faturamento</a>
+                        </div>
+                    </div>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Banco de Dados</a>
+
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="/admin" target="_blank">
+                                    Admin</a>
+                                <a class="navbar-item" 
+                                    href="{% url 'show_ledger' %}">
+                                    Saldo Inicial</a>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+
+                            <a class="button is-info">
+                                <strong>Sign up</strong></a>
+
+                            <a class="button is-info">
+                                Log in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+</body>
+
+    {% block content %}
+
+    
+    {% endblock content %}
+
+</html>

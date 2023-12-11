@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-primary is-light">
+            Informe a quantidade já consumida deste item antes do início da utilização deste sistema
+        </div>
+
+<div class="container is-max-desktop">
+<div class="columns is-half">
+
+        <form action="updaterecord/{{ df_ledger_item.id_x }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="hidden" id="id_x" name="id_x" value="{{df_ledger_item.id_x}}">
+            <input type="hidden" name="proforma_date_x" value="{{df_ledger_item.proforma_date_x}}">
+
+            <b>Número da ProForma:</b> 
+            <input name="pi_ref" class="input is-info is-small" value="{{ df_ledger_item.pi_ref }}" readonly>
+            <br><br>
+
+            <b>Invoice:</b>
+            <input name="invoice_ref" class="input is-info is-small" value="CI-INICIAL" readonly>
+            <br><br>
+
+            <b>Descrição/Pneu:</b>
+            <input name="description_x" class="input is-info is-small" value="{{df_ledger_item.description_x}}" readonly>
+            <br><br>
+
+            <b>Quantidade já utilizada:</b>
+            <input name="quantity_used" class="input is-info" placeholder="Informe a quantidade já utilizada">
+            <br><br> <!--style="background-color:#eef6fc" -->
+
+            <button type="submit" class="button is-info is-rounded">Atualizar Quantidade</button>
+
+        </form>
+
+    </div>
+</div>
+
+    </content>                                    
+</body>
+
+{% endblock content %}

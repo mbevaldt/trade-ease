@@ -1,0 +1,14 @@
+
+<!-- Include the Bulma CSS framework for styling -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+
+{% if 'sucesso' in msg %}
+    <div class="notification is-success">
+{% else %}
+    <div class="notification is-warning">
+{% endif %}
+
+        {{msg}} <br>Você pode retornar para a 
+        <a href="/"><b>Páginal Inicial</b></a>
+    </div>
