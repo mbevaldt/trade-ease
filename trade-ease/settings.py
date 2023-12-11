@@ -31,7 +31,37 @@ SECRET_KEY = "django-insecure-6tg4)*dyw+9c(6(mzpukkw!8(=twc5@j0k*%afx$@89tmejnw=
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://trade-ease.azurewebsites.net']
+
+CSRF_TRUSTED_ORIGINS = ["https://trade-ease.azurewebsites.net",
+                       "http://localhost:4200",
+                       "http://localhost:8000"]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://localhost:5000",
+    "http://localhost:8000"
+]
+
+CORS_ALLOW_METHODS = [
+'DELETE',
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 #DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
