@@ -81,7 +81,7 @@ WSGI_APPLICATION = "trade-ease.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Your secret key
-SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = env("SECRET_KEY")
 
 """
 DATABASES = {
