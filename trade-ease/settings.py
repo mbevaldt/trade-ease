@@ -31,6 +31,7 @@ SECRET_KEY = "django-insecure-6tg4)*dyw+9c(6(mzpukkw!8(=twc5@j0k*%afx$@89tmejnw=
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://trade-ease.azurewebsites.net']
 
 #DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
