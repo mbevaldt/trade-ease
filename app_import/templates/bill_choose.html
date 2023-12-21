@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <article class="message is-info">
+            <div class="message-header">
+                <p>Gerar Commercial Invoice e Packing List em Excel</p>
+            </div>
+            <div class="message-body">
+                <p>Selecione uma Bill of Lading para iniciar a geração dos documentos em Excel</p>
+                <p>O sitema irá verificar se todas as Proformas, Invoices e PL relacionados já foram importados</p>
+                <p>Além disso, todas as Invoices importadas serão alocadas nos saldos das Proformas</p>
+            </div>
+        </article>
+
+    <form action="bill_check" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="select is-info is-rounded">
+            <select class="form-select" name="bill_number">
+                <option>Selecione uma Bill of Lading</option>
+                {% for bill in bills %}
+
+                    <option>{{bill.bill_number}}</option>
+
+                {% endfor %}
+            </select>
+        </div>
+        <br><br>
+
+        <button type="submit" class="button is-info is-rounded">
+                Iniciar Geração dos Documentos</button>
+
+    </form>
+
+    </content>                                    
+</body>
+
+{% endblock content %}

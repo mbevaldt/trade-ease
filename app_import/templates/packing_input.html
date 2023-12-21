@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        {%if "ERRO" in packing_data.msg %}
+            <div class="notification is-warning is-info">
+                {{packing_data.msg}} <br>
+                Importe primeiro a Invoice e depois o Packing List para atualizar os pesos unitários!
+            </div>
+        {% else %}
+            <div class="notification is-warning is-info">
+                Verifique as informações obtidas antes de importar para o banco de dados
+            </div>
+            
+            <div class="buttons">
+                <a class="button is-info is-rounded" href="{% url 'add_packing_data' %}">Importar para Invoice
+                    {{packing_data.invoice_number}}</a>
+            </div>
+        
+        {% endif %}
+
+        
+        <table class="table" is-striped is-narrow>
+            <tr>
+                <th>Description</th>
+                <th>Qtdade</th>
+                <th>Un Weight</th>
+            </tr>
+
+            {% for itens in packing_data.itens %}
+                <tr>
+                    <td>{{ itens.0 }}</td>
+                    <td>{{ itens.2 }}</td>
+                    <td>{{ itens.3 }}</td>
+                </tr>
+            {% endfor %}
+        </table><br>
+    </content>                                    
+</body>
+
+{% endblock content %}

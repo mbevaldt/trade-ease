@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if 'sucesso' in msg %}
+        <div class="notification is-success">
+    {% else %}
+        <div class="notification is-warning">
+    {% endif %}
+        
+            {{msg}} <br>Você pode retornar para a 
+            <a href="/"><b>Páginal Inicial</b></a>
+        </div>
+
+{% endblock content %}

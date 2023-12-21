@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-warning is-info">
+            Verifique as informações obtidas antes de importar para o banco de dados
+        </div>
+
+        <table class="table" is-striped is-narrow>
+            <tr>
+                <th>Totais</th>
+                <th>Invoice</th>
+                <th>Calculado</th>
+            </tr>
+
+            <tr>
+                <td>Qtdade</td>
+                <td>{{ invoice_data.qtd_invoice }}</td>
+                <td style="color: {{ invoice_data.color_qtd }};">
+                    {{ invoice_data.qtd_tot_calc }}</td>
+            </tr>    
+
+            <tr>
+                <td>Valor</td>
+                <td>{{ invoice_data.tot_invoice }}</td>
+                <td style="color: {{ invoice_data.color_vlr }};">
+                    {{ invoice_data.vlr_tot_calc }}</td>
+            </tr>
+        </table>
+
+        <div class="buttons">
+            <a class="button is-info is-rounded" 
+            href="{% url 'add_invoice_data' %}">Importar Invoice para o BD</a>
+        </div>
+
+        <table class="table" is-striped is-narrow>
+            <tr>
+                <th>Invoice Number</th>
+                <th>Date</th>
+                <th>Container No</th>
+                <th>Port Destination</th>
+            </tr>
+
+            <tr>
+                <td>{{ invoice_data.invoice_number }}</td>
+                <td>{{ invoice_data.invoice_date }}</td>
+                <td>{{ invoice_data.container_num }}</td>
+                <td>{{ invoice_data.port_dest }}</td>
+            </tr>
+        </table>
+        
+        <table class="table" is-striped is-narrow>
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Un Price</th>
+            </tr>
+
+            {% for itens in invoice_data.itens %}
+
+                <tr>
+                    <td>{{ itens.0 }}</td>
+                    <td>{{ itens.1 }}</td>
+                    <td>{{ itens.3 }}</td>
+                    <td>{{ itens.4 }}</td>
+                </tr>
+                
+            {% endfor %}
+        </table><br>
+    </content>                                    
+</body>
+
+{% endblock content %}

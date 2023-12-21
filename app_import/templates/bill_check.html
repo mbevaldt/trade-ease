@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        {% if dict_msg.erro_total %}
+            <div class="notification is-warning">
+                <p>{{dict_msg.erro_total}}
+            </div>
+        {% else %}
+            {% if dict_msg.ledger %}
+                <div class="notification is-warning">
+                    <p>Ocorreu um erro em pelo menos uma alocação de pneu, conforme mensagens a seguir</p>
+                    <p>Verifique se há necessidade de importar uma Proforma antes de prosseguir</p>
+                </div>
+
+                <table class="table" is-striped is-narrow>
+                    <tr bgcolor="#eef6fc">
+                        <th>Invoice</th>
+                        <th>Data</th>
+                        <th>Medida</th>
+                        <th>Qtdade</th>
+                        <th>Saldo Anterior</th>
+                        <th>Mensagem</th>
+                    </tr>
+        
+                    {% for lst_dict_msg in dict_msg.ledger %}
+                        {% for dict_msg in lst_dict_msg %}
+                    <tr>
+                        <td>{{dict_msg.invoice_number}}</td>
+                        <td>{{dict_msg.invoice_date}}</td>
+                        <td>{{dict_msg.size}}</td>
+                        <td>{{dict_msg.quantity}}</td>
+                        <td>{{dict_msg.balance}}</td>
+                        <td>{{dict_msg.msg}}</td>
+                    </tr>
+                        {% endfor %}
+                    {% endfor %}
+        
+                </table>
+
+            {% else %}
+
+                {% if 'Não' in dict_msg.erro %} 
+                    <div class="notification is-info is-light">
+                        Todos os Documentos foram importados e as Invoices alocadas nos saldos das Proformas!
+                        <p>Você pode prosseguir com a geração em Excel</p>
+                    </div>
+                    <div class="buttons">
+                        <a class="button is-info is-rounded" 
+                            href="{% url 'export_to_excel' dict_msg.bill_number %}">
+                            Gerar Commercial Invoice e Packing List em Excel</a>
+                    </div>
+
+                    {% if dict_msg.freight == 0 %}
+                        <p style="color:red">Valor do ferete zerado! Preencha o valor na planiha.</p>
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="notification is-warning">
+                        <p>Importe os documentos que faltam para prosseguir com a geração em Excel!
+                    </div>
+                    
+                    <table class="table" is-striped is-narrow>
+                        <tr bgcolor="#eef6fc">
+                            <th>Documento</th>
+                            <th>Tipo</th>
+                            <th>Importado?</th>
+                        </tr>
+                        {% for index, row in dict_msg.df.iterrows %}
+                        <tr>
+                            {% for cell in row %}
+                            <td>
+                                {{cell}}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    
+                    </table>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </content>                                    
+</body>
+
+{% endblock content %}

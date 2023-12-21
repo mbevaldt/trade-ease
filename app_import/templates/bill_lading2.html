@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-warning is-info">
+            Verifique as informações obtidas antes de importar para o banco de dados
+        </div>
+
+        <p>Bill of Lading Number: {{bill_data.bill_number}}</p>
+        <p>Invoices: {{bill_data.invoices}}</p>
+        <p>Porto Destino: {{bill_data.port}}</p>
+        <p>Frete USD: {{bill_data.freight}}</p>
+        <br>
+
+        <div class="buttons">
+            <a class="button is-info is-rounded" 
+            href="{% url 'add_bill_lading' %}">Importar Bill of Lading</a>
+        </div>
+        
+        <table class="table" is-striped is-narrow>
+            <tr>
+                <th>Quantity</th>
+                <th>Container Num</th>
+                <th>Nett Weight</th>
+            </tr>
+
+            {% for itens in bill_data.itens %}
+
+                <tr>
+                    <td>{{ itens.0 }}</td>
+                    <td>{{ itens.1 }}</td>
+                    <td>{{ itens.2 }}</td>
+                </tr>
+                
+            {% endfor %}
+        </table><br>
+    </content>                                    
+</body>
+
+{% endblock content %}

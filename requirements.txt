@@ -1,0 +1,9 @@
+﻿Django==4.2.7
+pdfplumber==0.10.3
+psycopg2==2.9.9
+django-environ==0.11.2
+pandas==1.5.3
+pypdf==3.17.1
+openpyxl==3.0.10
+plotly==5.9.0
+whitenoise=6.6.0

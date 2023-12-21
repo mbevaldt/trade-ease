@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-info is-light">
+            Relação de ProFormas e Invoices Consumidas. Para alterar o saldo inicial clique em um item
+        </div>
+
+        <table class="table" is-striped is-narrow>
+
+            <tr bgcolor="#eef6fc">
+                <th>Cliente</th>
+                <th>Proforma</th>
+                <th>Data</th>
+                <th>Pneu</th>
+                <th>Invoice</th>
+                <th>Data</th>
+                <th>Qtde Inicial</th>
+                <th>Qtde Usada</th>
+                <th>Qtde Disponível</th>
+            </tr>
+
+            {% for reg in df_ledger.itertuples %}
+
+                <tr  border: 10px solid black>
+                    <td>{{ reg.customer_x }}</td>
+                    <td>{{ reg.pi_ref }}</td>
+                    <td>{{reg.proforma_date_x}}</td>
+                    <td><a href="update/{{ reg.id_x }}">{{ reg.size_x }}</a></td>
+                    <td>{{reg.invoice_ref}}</td>
+                    <td>{{reg.invoice_date}}</td>
+                    <td>{{reg.quantity}}</td>
+                    <td>{{reg.quantity_used}}</td>
+                    <td>{{reg.balance}}</td>
+                </tr>    
+
+            {% endfor %}
+
+        </table><br>
+    </content>                                    
+</body>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Prepare django to load static files -->
+
+{% block content %}
+
+<body>
+    <content> <!--to use HTML tags and not Bulma, use content as container-->
+
+        <div class="notification is-warning is-info">
+            Verifique as informações obtidas antes de importar para o banco de dados
+        </div>
+        
+        <p><b>Quantidade Total: {{ proforma_data.qtd_tot }}</p></b>
+        <p><b>Valor FOB Pro Forma: {{ proforma_data.vlr_tot }}</p></b><br>
+
+        <div class="buttons">
+            <a class="button is-info is-rounded" 
+                href="{% url 'add_proforma_data' %}">Importar Pro Forma para o BD</a>
+        </div>
+    
+        <p>DISCHARGE PORT: {{ proforma_data.port_dest }}</p>
+        <p>PI REF: {{ proforma_data.pi_ref }}</p>
+        <p>OTHER REFERENCE: {{ proforma_data.other_ref }}</p>
+        <p>DATE: {{ proforma_data.proforma_date }}</p><br>
+
+        <table class="table" is-striped is-narrow>
+            <tr>
+                <th>ITEM</th>
+                <th>DESCRIPTION</th>
+                <th>QTY</th>
+                <th>NCM</th>
+                <th>WEIGHT</th>
+                <th>UN PRICE</th>
+            </tr>
+
+            {% for itens in proforma_data.itens %}
+
+                <tr>
+                    <td>{{ itens.0 }}</td>
+                    <td>{{ itens.2 }}</td>
+                    <td>{{ itens.4 }}</td>
+                    <td>{{ itens.5 }}</td>
+                    <td>{{ itens.6 }}</td>
+                    <td>{{ itens.7 }}</td>
+                </tr>
+                
+            {% endfor %}
+        </table><br>
+
+    </content>                                    
+
+</body>
+
+{% endblock content %}
